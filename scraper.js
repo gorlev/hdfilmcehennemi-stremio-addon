@@ -117,11 +117,13 @@ async function scraper(imdbId, type, season, episode) {
             if (type === "movie"){
                 downlaodLinks.push({name: 'HD Film \nCehennemi',
                                     title: `${imdbName}\n${mediaName}\n${resolution} | ${lang}`,
-                                    url: `https://hdfilmcehennemi.download${downloadLink}`});
+                                    url: `https://hdfilmcehennemi.download${downloadLink}`,
+                                    notWebReady: true});
             } else if (type === "series") {
                 downlaodLinks.push({name: 'HD Film\nCehennemi',
                                     title: `${imdbName} | ${mediaName}\n${season}. Sezon ${episode}. Bölüm\n${resolution}`,
-                                    url: `https://hdfilmcehennemi.download${downloadLink}`});
+                                    url: `https://hdfilmcehennemi.download${downloadLink}`,
+                                    notWebReady: true});
             }
         }).get();
 
