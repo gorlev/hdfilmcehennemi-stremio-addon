@@ -17,13 +17,13 @@ async function scraper(imdbId, type, season, episode) {
         const IMDBdata = await responseFromIMDB.json();
         const imdbName = await IMDBdata.d[0]["l"];
         const IMDByear = await IMDBdata.d[0]["y"];
-        console.log(imdbName)
+        //console.log(imdbName)
 
         const responseFromTMDB = await fetch(`https://www.themoviedb.org/search?language=tr-TR&query=${imdbName} y:${IMDByear}`);
         const TMDBdata = await responseFromTMDB.text();
         let $ = cheerio.load(TMDBdata);
         const turkishName = $('.details > .wrapper > .title > div').first().text().trim()
-        console.log(turkishName)
+        //console.log(turkishName)
       
         //TURKISH CHARS TO ENGLISH CHARS
         let chars = {'ı':'i',
@@ -37,8 +37,8 @@ async function scraper(imdbId, type, season, episode) {
                      ':':''};
         let editedName = imdbName.toLowerCase().replace(/[ıöüçşğ:' ]/g, m => chars[m]);
         let editedNameTR = turkishName.toLowerCase().replace(/[ıöüçşğ:' ]/g, m => chars[m]);
-        console.log(editedName);
-        console.log(editedNameTR)
+        //console.log(editedName);
+        //console.log(editedNameTR)
 
         //FINDS THE EMBED URL
         let embedUrl;
@@ -50,7 +50,7 @@ async function scraper(imdbId, type, season, episode) {
                 movieHtml = await axios.get(`https://www.hdfilmcehennemi.net/${editedName}`);
                 $ = cheerio.load(movieHtml.data);
                 embedUrl = $('script[type="application/ld+json"]').last().html().split(",").reverse()[0].split('"')[3];
-                console.log(movieHtml.request._redirectable._currentUrl) //redirectedURL
+                //console.log(movieHtml.request._redirectable._currentUrl) //redirectedURL
                 lang = $('.selected').text().trim();
                 
             } catch(e) {
@@ -58,7 +58,7 @@ async function scraper(imdbId, type, season, episode) {
                     movieHtml = await axios.get(`https://www.hdfilmcehennemi.net/${editedNameTR}`);
                     $ = cheerio.load(movieHtml.data);
                     embedUrl = $('script[type="application/ld+json"]').last().html().split(",").reverse()[0].split('"')[3];
-                    console.log(movieHtml.request._redirectable._currentUrl) //redirectedURL
+                    //console.log(movieHtml.request._redirectable._currentUrl) //redirectedURL
                     lang = $('.selected').text().trim();
                 }
                 catch(e){
@@ -66,7 +66,7 @@ async function scraper(imdbId, type, season, episode) {
                     
                     $ = cheerio.load(movieHtml.data);
                     embedUrl = $('script[type="application/ld+json"]').last().html().split(",").reverse()[0].split('"')[3];
-                    console.log(movieHtml.request._redirectable._currentUrl)
+                    //console.log(movieHtml.request._redirectable._currentUrl)
                     lang = $('.selected').text().trim();
                 }                
             }
@@ -77,7 +77,7 @@ async function scraper(imdbId, type, season, episode) {
                 
                 const redirectUrl = (await requestSeries).request._redirectable._currentUrl;
                 const seriesUrl = redirectUrl + "bolum-" + episode;
-                console.log(seriesUrl);
+                //console.log(seriesUrl);
                 
                 const seriesHtml = await axios.get(seriesUrl);
                 $ = cheerio.load(seriesHtml.data);
@@ -88,7 +88,7 @@ async function scraper(imdbId, type, season, episode) {
                 
                 const redirectUrl = (await requestSeries).request._redirectable._currentUrl;
                 const seriesUrl = redirectUrl + "bolum-" + episode;
-                console.log(seriesUrl);
+                //console.log(seriesUrl);
                 
                 const seriesHtml = await axios.get(seriesUrl);
                 $ = cheerio.load(seriesHtml.data);
@@ -127,7 +127,7 @@ async function scraper(imdbId, type, season, episode) {
             }
         }).get();
 
-        console.log(downlaodLinks)
+        //console.log(downlaodLinks)
 
         return downlaodLinks;
 
