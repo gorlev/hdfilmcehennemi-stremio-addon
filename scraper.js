@@ -2,7 +2,7 @@
 const cheerio = require('cheerio');
 const axios = require('axios').default;
 const fetch = require("node-fetch");
-
+const lastURLfinder = require("./lastURLfinder");
 
 async function scraper(imdbId, type, season, episode) {
     try {
@@ -114,24 +114,43 @@ async function scraper(imdbId, type, season, episode) {
             let downloadLink = $(section).attr('href');
             let resolution = $(section).text().trim();
 
-            if (type === "movie"){
-                downlaodLinks.push({name: 'HD Film \nCehennemi',
-                                    title: `${imdbName}\n${mediaName}\n${resolution} | ${lang}`,
-                                    url: `https://hdfilmcehennemi.download${downloadLink}`,
-                                    notWebReady: true
-                                    });
-            } else if (type === "series") {
-                downlaodLinks.push({name: 'HD Film\nCehennemi',
-                                    title: `${imdbName} | ${mediaName}\n${season}. Sezon ${episode}. Bölüm\n${resolution}`,
-                                    url: `https://hdfilmcehennemi.download${downloadLink}`,
-                                    notWebReady: true
-                                    });
-            }
+            downlaodLinks.push({resolution: resolution, url:`https://hdfilmcehennemi.download${downloadLink}` })
+            // if (type === "movie"){
+            //     downlaodLinks.push({//name: 'HD Film \nCehennemi',
+            //                         resolution: resolution,
+            //                         title: `${imdbName}\n${mediaName}\n${resolution} | ${lang}`,
+            //                         url: `https://hdfilmcehennemi.download${downloadLink}`,
+            //                         });
+            // } else if (type === "series") {
+            //     downlaodLinks.push({//name: 'HD Film\nCehennemi',
+            //                         resolution: resolution,
+            //                         title: `${imdbName} | ${mediaName}\n${season}. Sezon ${episode}. Bölüm\n${resolution}`,
+            //                         url: `https://hdfilmcehennemi.download${downloadLink}`,
+            //                         });
+            // }
         }).get();
 
         //console.log(downlaodLinks)
 
-        return downlaodLinks;
+        let stremioElements = []
+        for (let i = 0; i < downlaodLinks.length; i++){
+            const lastUrl = await lastURLfinder(downlaodLinks[i].url)
+            resolution = downlaodLinks[i].resolution
+            if (type === "movie"){
+                stremioElements.push({  name: 'HD Film \nCehennemi',
+                                        title: `${imdbName}\n${mediaName}\n${resolution} | ${lang}`,
+                                        url: lastUrl
+                                    });
+            } else if (type === "series") {
+                stremioElements.push({name: 'HD Film\nCehennemi',
+                                    title: `${imdbName} | ${mediaName}\n${season}. Sezon ${episode}. Bölüm\n${resolution}`,
+                                    url: lastUrl,
+                                    });
+        }
+        }
+
+        //console.log(stremioElements)
+        return stremioElements;
 
     } catch (e) {
         console.log('Scraper didn\'t work! :( \n',e);
