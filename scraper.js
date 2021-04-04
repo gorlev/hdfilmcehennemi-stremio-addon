@@ -115,19 +115,6 @@ async function scraper(imdbId, type, season, episode) {
             let resolution = $(section).text().trim();
 
             downlaodLinks.push({resolution: resolution, url:`https://hdfilmcehennemi.download${downloadLink}` })
-            // if (type === "movie"){
-            //     downlaodLinks.push({//name: 'HD Film \nCehennemi',
-            //                         resolution: resolution,
-            //                         title: `${imdbName}\n${mediaName}\n${resolution} | ${lang}`,
-            //                         url: `https://hdfilmcehennemi.download${downloadLink}`,
-            //                         });
-            // } else if (type === "series") {
-            //     downlaodLinks.push({//name: 'HD Film\nCehennemi',
-            //                         resolution: resolution,
-            //                         title: `${imdbName} | ${mediaName}\n${season}. Sezon ${episode}. Bölüm\n${resolution}`,
-            //                         url: `https://hdfilmcehennemi.download${downloadLink}`,
-            //                         });
-            // }
         }).get();
 
         //console.log(downlaodLinks)
