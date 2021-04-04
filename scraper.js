@@ -126,12 +126,14 @@ async function scraper(imdbId, type, season, episode) {
             if (type === "movie"){
                 stremioElements.push({  name: 'HD Film \nCehennemi',
                                         title: `${imdbName}\n${mediaName}\n${resolution} | ${lang}`,
-                                        url: lastUrl
+                                        url: lastUrl,
+                                        notWebReady: true
                                     });
             } else if (type === "series") {
                 stremioElements.push({name: 'HD Film\nCehennemi',
                                     title: `${imdbName} | ${mediaName}\n${season}. Sezon ${episode}. Bölüm\n${resolution}`,
                                     url: lastUrl,
+                                    notWebReady: true
                                     });
         }
         }
