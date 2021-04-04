@@ -1,7 +1,7 @@
 {
 	"name": "stremio-addon-HDfilmCehennemi",
-	"version": "0.0.3",
-	"description": "hdfilm cehennemi description",
+	"version": "0.0.4",
+	"description": "hdfilm cehennemi movies/series",
 	"scripts": {
 		"start": "node server.js"
 	},

@@ -4,7 +4,7 @@ const { scraper } = require("./scraper")
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
 	"id": "community.HDfilmCehennemi",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"catalogs": [],
 	"resources": [
 		"stream"
