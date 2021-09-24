@@ -9,7 +9,7 @@ const manifest = {
 	"types": ["movie","series"],
 	"name": "hdfilmcehennemi",
 	"description": "HDFilmCehennemi Stremio Addon brings all the HTTP streams from hdfilmcehennemi.net to Stremio with Turkish dubbing option.",
-	"logo": "https://www.hdfilmcehennemi.tv/assets/front/icon/favicon.ico",
+	"logo": "https://raw.githubusercontent.com/gorlev/hdfilmcehennemi-stremio-addon/master/logo.png",
 	"idPrefixes": ["tt"]
 }
 const builder = new addonBuilder(manifest)
