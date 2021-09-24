@@ -1,14 +1,14 @@
 {
-	"name": "stremio-addon-HDfilmCehennemi",
+	"name": "stremio-addon-hdfilmcehennemi",
 	"version": "0.0.5",
-	"description": "hdfilm cehennemi movies/series",
+	"description": "hdfilmcehennemi movies/series",
 	"scripts": {
 		"start": "node server.js"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
 		"cheerio": "^1.0.0-rc.5",
-		"request": "^2.88.2",
+		"node-fetch": "^2.6.1",
 		"stremio-addon-sdk": "1.1.x"
 	}
 }
